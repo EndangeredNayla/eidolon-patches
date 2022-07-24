@@ -34,15 +34,15 @@ public class ListPage extends Page {
 
     @Override
     @OnlyIn(Dist.CLIENT)
-    public void render(CodexGui gui, PoseStack mStack, int x, int y, int mouseX, int mouseY) {
+    public void render(CodexGui gui, PoseStack poseStack, int x, int y, int mouseX, int mouseY) {
         RenderSystem.setShaderTexture(0, BACKGROUND);
         for (int i = 0; i < entries.length; i ++) {
-            gui.blit(mStack, x + 1, y + 7 + i * 20, 128, 0, 122, 18);
+            gui.blit(poseStack, x + 1, y + 7 + i * 20, 128, 0, 122, 18);
         }
 
         for (int i = 0; i < entries.length; i ++) {
-            drawItem(gui, mStack, entries[i].icon, x + 2, y + 8 + i * 20, mouseX, mouseY);
-            drawText(gui, mStack, I18n.get(key + "." + entries[i].key), x + 24, y + 20 + i * 20 - Minecraft.getInstance().font.lineHeight);
+            drawItem(gui, poseStack, entries[i].icon, x + 2, y + 8 + i * 20, mouseX, mouseY);
+            drawText(gui, poseStack, I18n.get(key + "." + entries[i].key), x + 24, y + 20 + i * 20 - Minecraft.getInstance().font.lineHeight);
         }
     }
 }

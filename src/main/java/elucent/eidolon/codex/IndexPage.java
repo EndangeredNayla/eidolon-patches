@@ -81,15 +81,15 @@ public class IndexPage extends Page {
 
     @Override
     @OnlyIn(Dist.CLIENT)
-    public void render(CodexGui gui, PoseStack mStack, int x, int y, int mouseX, int mouseY) {
+    public void render(CodexGui gui, PoseStack poseStack, int x, int y, int mouseX, int mouseY) {
         RenderSystem.setShaderTexture(0, BACKGROUND);
         for (int i = 0; i < entries.length; i ++) {
-            gui.blit(mStack, x + 1, y + 7 + i * 20, 128, entries[i].isUnlocked() ? 0 : 96, 122, 18);
+            gui.blit(poseStack, x + 1, y + 7 + i * 20, 128, entries[i].isUnlocked() ? 0 : 96, 122, 18);
         }
 
         for (int i = 0; i < entries.length; i ++) if (entries[i].isUnlocked()) {
             Minecraft.getInstance().getItemRenderer().renderAndDecorateItem(entries[i].icon, x + 2, y + 8 + i * 20);
-            drawText(gui, mStack, I18n.get(entries[i].chapter.titleKey), x + 24, y + 20 + i * 20 - Minecraft.getInstance().font.lineHeight);
+            drawText(gui, poseStack, I18n.get(entries[i].chapter.titleKey), x + 24, y + 20 + i * 20 - Minecraft.getInstance().font.lineHeight);
         }
     }
 }

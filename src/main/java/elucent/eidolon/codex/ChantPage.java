@@ -55,21 +55,21 @@ public class ChantPage extends Page {
 
     @Override
     @OnlyIn(Dist.CLIENT)
-    public void render(CodexGui gui, PoseStack mStack, int x, int y, int mouseX, int mouseY) {
+    public void render(CodexGui gui, PoseStack poseStack, int x, int y, int mouseX, int mouseY) {
         String title = I18n.get(this.title);
         int titleWidth = Minecraft.getInstance().font.width(title);
-        drawText(gui, mStack, title, x + 64 - titleWidth / 2, y + 15 - Minecraft.getInstance().font.lineHeight);
+        drawText(gui, poseStack, title, x + 64 - titleWidth / 2, y + 15 - Minecraft.getInstance().font.lineHeight);
 
         RenderSystem.setShaderTexture(0, CodexGui.CODEX_BACKGROUND);
         Player entity = Minecraft.getInstance().player;
         IKnowledge knowledge = entity.getCapability(KnowledgeProvider.CAPABILITY, null).resolve().get();
         int w = chant.length * 24;
         int baseX = x + 64 - w / 2;
-        GuiComponent.blit(mStack, baseX - 16, y + 28, 256, 208, 16, 32, 512, 512);
+        GuiComponent.blit(poseStack, baseX - 16, y + 28, 256, 208, 16, 32, 512, 512);
         for (int i = 0; i < chant.length; i ++) {
-            GuiComponent.blit(mStack, baseX + i * 24, y + 28, 272, 208, 24, 32, 512, 512);
+            GuiComponent.blit(poseStack, baseX + i * 24, y + 28, 272, 208, 24, 32, 512, 512);
         }
-        GuiComponent.blit(mStack, baseX + w, y + 28, 296, 208, 16, 32, 512, 512);
+        GuiComponent.blit(poseStack, baseX + w, y + 28, 296, 208, 16, 32, 512, 512);
 
         Tesselator tess = Tesselator.getInstance();
         RenderSystem.enableBlend();
@@ -77,16 +77,16 @@ public class ChantPage extends Page {
         for (int i = 0; i < chant.length; i ++) {
             RenderSystem.setShaderTexture(0, CodexGui.CODEX_BACKGROUND);
             RenderSystem.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
-            GuiComponent.blit(mStack, baseX + i * 24, y + 28, 312, 208, 24, 24, 512, 512);
+            GuiComponent.blit(poseStack, baseX + i * 24, y + 28, 312, 208, 24, 24, 512, 512);
 
             RenderSystem.setShaderTexture(0, TextureAtlas.LOCATION_BLOCKS);
             Sign sign = chant[i];
             float flicker = 0.875f + 0.125f * (float)Math.sin(Math.toRadians(12 * ClientEvents.getClientTicks()));
             RenderSystem.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE);
-            RenderUtil.litQuad(mStack, MultiBufferSource.immediate(tess.getBuilder()), baseX + i * 24 + 4, y + 32, 16, 16,
+            RenderUtil.litQuad(poseStack, MultiBufferSource.immediate(tess.getBuilder()), baseX + i * 24 + 4, y + 32, 16, 16,
                 sign.getRed(), sign.getGreen(), sign.getBlue(), Minecraft.getInstance().getTextureAtlas(TextureAtlas.LOCATION_BLOCKS).apply(sign.getSprite()));
             tess.end();
-            RenderUtil.litQuad(mStack, MultiBufferSource.immediate(tess.getBuilder()), baseX + i * 24 + 4, y + 32, 16, 16,
+            RenderUtil.litQuad(poseStack, MultiBufferSource.immediate(tess.getBuilder()), baseX + i * 24 + 4, y + 32, 16, 16,
                 sign.getRed() * flicker, sign.getGreen() * flicker, sign.getBlue() * flicker, Minecraft.getInstance().getTextureAtlas(TextureAtlas.LOCATION_BLOCKS).apply(sign.getSprite()));
             tess.end();
         }
@@ -94,6 +94,6 @@ public class ChantPage extends Page {
         RenderSystem.disableBlend();
         RenderSystem.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
 
-        drawWrappingText(gui, mStack, I18n.get(text), x + 4, y + 72, 120);
+        drawWrappingText(gui, poseStack, I18n.get(text), x + 4, y + 72, 120);
     }
 }

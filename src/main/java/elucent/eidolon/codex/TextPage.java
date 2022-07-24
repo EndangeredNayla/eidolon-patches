@@ -18,7 +18,7 @@ public class TextPage extends Page {
 
     @Override
     @OnlyIn(Dist.CLIENT)
-    public void render(CodexGui gui, PoseStack mStack, int x, int y, int mouseX, int mouseY) {
-        drawWrappingText(gui, mStack, I18n.get(text), x + 4, y + 4, 120);
+    public void render(CodexGui gui, PoseStack poseStack, int x, int y, int mouseX, int mouseY) {
+        drawWrappingText(gui, poseStack, I18n.get(text), x + 4, y + 4, 120);
     }
 }

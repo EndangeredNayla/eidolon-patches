@@ -40,15 +40,15 @@ public class RitualPage extends Page {
 
     @Override
     @OnlyIn(Dist.CLIENT)
-    public void render(CodexGui gui, PoseStack mStack, int x, int y, int mouseX, int mouseY) {
+    public void render(CodexGui gui, PoseStack poseStack, int x, int y, int mouseX, int mouseY) {
         float angleStep = Math.min(30, 180 / inputs.length);
         double rootAngle = 90 - (inputs.length - 1) * angleStep / 2;
         for (int i = 0; i < inputs.length; i ++) {
             double a = Math.toRadians(rootAngle + angleStep * i);
             int dx = (int)(64 + 48 * Math.cos(a));
             int dy = (int)(88 + 48 * Math.sin(a));
-            if (inputs[i].isFocus) gui.blit(mStack, x + dx - 13, y + dy - 13, 128, 0, 26, 24);
-            else gui.blit(mStack, x + dx - 8, y + dy - 8, 154, 0, 16, 16);
+            if (inputs[i].isFocus) gui.blit(poseStack, x + dx - 13, y + dy - 13, 128, 0, 26, 24);
+            else gui.blit(poseStack, x + dx - 8, y + dy - 8, 154, 0, 16, 16);
         }
 
         RenderSystem.enableBlend();
@@ -58,12 +58,12 @@ public class RitualPage extends Page {
         Tesselator tess = Tesselator.getInstance();
         RenderSystem.disableTexture();
         RenderSystem.depthMask(false);
-        RenderUtil.dragon(mStack, MultiBufferSource.immediate(tess.getBuilder()), x + 64, y + 48, 20, 20, ritual.getRed(), ritual.getGreen(), ritual.getBlue());
+        RenderUtil.dragon(poseStack, MultiBufferSource.immediate(tess.getBuilder()), x + 64, y + 48, 20, 20, ritual.getRed(), ritual.getGreen(), ritual.getBlue());
         tess.end();
         RenderSystem.enableTexture();
         RenderSystem.setShaderTexture(0, TextureAtlas.LOCATION_BLOCKS);
         for (int j = 0; j < 2; j++) {
-            RenderUtil.litQuad(mStack, MultiBufferSource.immediate(tess.getBuilder()), x + 52, y + 36, 24, 24,
+            RenderUtil.litQuad(poseStack, MultiBufferSource.immediate(tess.getBuilder()), x + 52, y + 36, 24, 24,
                 ritual.getRed(), ritual.getGreen(), ritual.getBlue(), Minecraft.getInstance().getTextureAtlas(TextureAtlas.LOCATION_BLOCKS).apply(ritual.getSymbol()));
             tess.end();
         }

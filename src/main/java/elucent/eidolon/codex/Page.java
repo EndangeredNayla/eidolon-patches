@@ -6,10 +6,8 @@ import elucent.eidolon.util.ColorUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.renderer.entity.ItemRenderer;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraft.world.item.ItemStack;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +23,6 @@ public abstract class Page {
         //
     }
 
-    @OnlyIn(Dist.CLIENT)
     public static void drawItem(CodexGui gui, PoseStack mStack, ItemStack stack, int x, int y, int mouseX, int mouseY) {
         ItemRenderer ir = Minecraft.getInstance().getItemRenderer();
         ir.renderAndDecorateItem(stack, x, y);
@@ -35,7 +32,6 @@ public abstract class Page {
         }
     }
 
-    @OnlyIn(Dist.CLIENT)
     public static void drawText(CodexGui gui, PoseStack mStack, String text, int x, int y) {
         Font font = Minecraft.getInstance().font;
         font.draw(mStack, text, x, y - 1, ColorUtil.packColor(128, 255, 255, 255));
@@ -45,7 +41,6 @@ public abstract class Page {
         font.draw(mStack, text, x, y, ColorUtil.packColor(255, 79, 59, 47));
     }
 
-    @OnlyIn(Dist.CLIENT)
     public static void drawWrappingText(CodexGui gui, PoseStack mStack, String text, int x, int y, int w) {
         Font font = Minecraft.getInstance().font;
         List<String> lines = new ArrayList<>();
@@ -64,7 +59,6 @@ public abstract class Page {
         }
     }
 
-    @OnlyIn(Dist.CLIENT)
     public void fullRender(CodexGui gui, PoseStack mStack, int x, int y, int mouseX, int mouseY) {
         RenderSystem.setShaderTexture(0, bg);
         renderBackground(gui, mStack, x, y, mouseX, mouseY);
@@ -72,20 +66,16 @@ public abstract class Page {
         renderIngredients(gui, mStack, x, y, mouseX, mouseY);
     }
 
-    @OnlyIn(Dist.CLIENT)
     public void renderBackground(CodexGui gui, PoseStack mStack, int x, int y, int mouseX, int mouseY) {
         RenderSystem.setShaderTexture(0, bg);
         gui.blit(mStack, x, y, 0, 0, 128, 160);
     }
 
-    @OnlyIn(Dist.CLIENT)
     public boolean click(CodexGui gui, int x, int y, int mouseX, int mouseY) {
         return false;
     }
 
-    @OnlyIn(Dist.CLIENT)
-    public void render(CodexGui gui, PoseStack mStack, int x, int y, int mouseX, int mouseY) {}
+    public void render(CodexGui gui, PoseStack poseStack, int x, int y, int mouseX, int mouseY) {}
 
-    @OnlyIn(Dist.CLIENT)
     public void renderIngredients(CodexGui gui, PoseStack mStack, int x, int y, int mouseX, int mouseY) {}
 }

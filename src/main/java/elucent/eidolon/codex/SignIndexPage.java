@@ -86,7 +86,7 @@ public class SignIndexPage extends Page {
 
     @Override
     @OnlyIn(Dist.CLIENT)
-    public void render(CodexGui gui, PoseStack mStack, int x, int y, int mouseX, int mouseY) {
+    public void render(CodexGui gui, PoseStack poseStack, int x, int y, int mouseX, int mouseY) {
         Player entity = Minecraft.getInstance().player;
         IKnowledge knowledge = entity.getCapability(KnowledgeProvider.CAPABILITY, null).resolve().get();
         for (int i = 0; i < entries.length; i ++) {
@@ -95,7 +95,7 @@ public class SignIndexPage extends Page {
             Sign sign = entries[i].sign;
             boolean hover = knowledge.knowsSign(sign) && mouseX >= xx && mouseX <= xx + 48 && mouseY >= yy && mouseY <= yy + 48;
             boolean infoHover = mouseX >= xx + 38 && mouseY >= yy + 38 && mouseX <= xx + 50 && mouseY <= yy + 50;
-            gui.blit(mStack, xx, yy, knowledge.knowsSign(entries[i].sign) ? 128 : 176, 0, 48, 48);
+            gui.blit(poseStack, xx, yy, knowledge.knowsSign(entries[i].sign) ? 128 : 176, 0, 48, 48);
 
             if (knowledge.knowsSign(sign)) {
                 Tesselator tess = Tesselator.getInstance();
@@ -103,15 +103,15 @@ public class SignIndexPage extends Page {
                 // todo RenderSystem.alphaFunc(GL11.GL_GEQUAL, 1f / 256f);
                 RenderSystem.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE);
                 if (hover && !infoHover) {
-                    mStack.pushPose();
-                    mStack.translate(xx + 24, yy + 24, 0);
-                    mStack.mulPose(Vector3f.ZP.rotationDegrees(ClientEvents.getClientTicks() * 1.5f));
-                    colorBlit(mStack, -18, -18, 128, 48, 36, 36, 256, 256, sign.getColor());
-                    mStack.popPose();
+                    poseStack.pushPose();
+                    poseStack.translate(xx + 24, yy + 24, 0);
+                    poseStack.mulPose(Vector3f.ZP.rotationDegrees(ClientEvents.getClientTicks() * 1.5f));
+                    colorBlit(poseStack, -18, -18, 128, 48, 36, 36, 256, 256, sign.getColor());
+                    poseStack.popPose();
                 }
                 RenderSystem.setShaderTexture(0, TextureAtlas.LOCATION_BLOCKS);
                 for (int j = 0; j < (hover && !infoHover ? 2 : 1); j++) {
-                    RenderUtil.litQuad(mStack, MultiBufferSource.immediate(tess.getBuilder()), xx + 12, yy + 12, 24, 24,
+                    RenderUtil.litQuad(poseStack, MultiBufferSource.immediate(tess.getBuilder()), xx + 12, yy + 12, 24, 24,
                         sign.getRed(), sign.getGreen(), sign.getBlue(), Minecraft.getInstance().getTextureAtlas(TextureAtlas.LOCATION_BLOCKS).apply(sign.getSprite()));
                     tess.end();
                 }
@@ -120,10 +120,10 @@ public class SignIndexPage extends Page {
                 RenderSystem.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
 
                 RenderSystem.setShaderTexture(0, BACKGROUND);
-                gui.blit(mStack, xx + 38, yy + 38, infoHover ? 188 : 176, 48, 12, 14);
+                gui.blit(poseStack, xx + 38, yy + 38, infoHover ? 188 : 176, 48, 12, 14);
 
                 if (infoHover) {
-                    gui.renderTooltip(mStack, new TranslatableComponent("eidolon.codex.sign_suffix", new TranslatableComponent(sign.getRegistryName().getNamespace() + ".sign." + sign.getRegistryName().getPath())), mouseX, mouseY);
+                    gui.renderTooltip(poseStack, new TranslatableComponent("eidolon.codex.sign_suffix", new TranslatableComponent(sign.getRegistryName().getNamespace() + ".sign." + sign.getRegistryName().getPath())), mouseX, mouseY);
                 }
             }
         }
