@@ -122,7 +122,7 @@ public class Registry {
 
         public DecoBlockPack addFence() {
             fence = addBlock(basename + "_fence", new FenceBlock(props));
-            fence = addBlock(basename + "_fence_gate", new FenceGateBlock(props));
+            fence_gate = addBlock(basename + "_fence_gate", new FenceGateBlock(props));
             return this;
         }
 
@@ -131,6 +131,8 @@ public class Registry {
         public Block getStairs() { return stair.get(); }
         public Block getWall() { return wall.get(); }
         public Block getFence() { return fence.get(); }
+        public Block getFenceGate() { return fence_gate.get(); }
+
     }
 
     static <T extends Entity> RegistryObject<EntityType<T>> addEntity(String name, float width, float height, EntityType.IFactory<T> factory, EntityClassification kind) {
@@ -176,7 +178,11 @@ public class Registry {
         SPLASH_BONECHILL_EVENT = addSound("splash_bonechill"),
         SELECT_SIGN = addSound("select_sign"),
         CHANT_WORD = addSound("chant_word"),
-        PAROUSIA = addSound("parousia");
+        PAROUSIA = addSound("parousia"),
+        WRAITH_DEATH = addSound("wraith_death"),
+        WRAITH_AMBIENT = addSound("wraith_ambient"),
+        WRAITH_HURT = addSound("wraith_hurt");
+
 
     public static RegistryObject<Effect>
         CHILLED_EFFECT = POTIONS.register("chilled", () -> new ChilledEffect()),
@@ -259,16 +265,16 @@ public class Registry {
     public static RegistryObject<Block>
         LEAD_ORE = addBlock("lead_ore", blockProps(Material.ROCK, MaterialColor.STONE)
             .sound(SoundType.STONE).hardnessAndResistance(2.8f, 3.0f)
-            .harvestLevel(2).harvestTool(ToolType.PICKAXE)),
+            .setRequiresTool().harvestLevel(2).harvestTool(ToolType.PICKAXE)),
         LEAD_BLOCK = addBlock("lead_block", blockProps(Material.ROCK, MaterialColor.PURPLE_TERRACOTTA)
             .sound(SoundType.METAL).hardnessAndResistance(3.0f, 3.0f)
-            .harvestLevel(2).harvestTool(ToolType.PICKAXE)),
+            .setRequiresTool().harvestLevel(2).harvestTool(ToolType.PICKAXE)),
         PEWTER_BLOCK = addBlock("pewter_block", blockProps(Material.ROCK, MaterialColor.LIGHT_GRAY)
             .sound(SoundType.METAL).hardnessAndResistance(4.0f, 4.0f)
-            .harvestLevel(2).harvestTool(ToolType.PICKAXE)),
+            .setRequiresTool().harvestLevel(2).harvestTool(ToolType.PICKAXE)),
         ARCANE_GOLD_BLOCK = addBlock("arcane_gold_block", blockProps(Material.ROCK, MaterialColor.GOLD)
             .sound(SoundType.METAL).hardnessAndResistance(3.0f, 4.0f)
-            .harvestLevel(2).harvestTool(ToolType.PICKAXE)),
+            .setRequiresTool().harvestLevel(2).harvestTool(ToolType.PICKAXE)),
         WOODEN_ALTAR = addBlock("wooden_altar", new TableBlockBase(blockProps(Material.WOOD, MaterialColor.WOOD)
             .sound(SoundType.WOOD).hardnessAndResistance(1.6f, 3.0f)
             .harvestTool(ToolType.AXE))),
