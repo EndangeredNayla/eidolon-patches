@@ -8,12 +8,9 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.IRecipeHolder;
 import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.ICraftingRecipe;
 import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.SoundEvents;
-
-import java.util.Optional;
 
 public class WorktableResultSlot extends Slot {
     private final CraftingInventory core, extras;
@@ -71,7 +68,7 @@ public class WorktableResultSlot extends Slot {
     public ItemStack onTake(PlayerEntity thePlayer, ItemStack stack) {
         this.onCrafting(stack);
         net.minecraftforge.common.ForgeHooks.setCraftingPlayer(thePlayer);
-        WorktableRecipe recipe = WorktableRegistry.find(core, extras);
+        WorktableRecipe recipe = WorktableRegistry.find(thePlayer.world, core, extras);
         NonNullList<ItemStack> items = null;
         if (recipe != null) {
             items = recipe.getRemainingItems(core, extras);
@@ -84,7 +81,7 @@ public class WorktableResultSlot extends Slot {
         net.minecraftforge.common.ForgeHooks.setCraftingPlayer(null);
         assert items != null;
 
-        for(int i = 0; i < items.size(); ++i) {
+        for(int i = 0; i < (recipe != null ? items.size() : 9); ++i) {
             IInventory inv = i < 9 ? core : extras;
             int index = i < 9 ? i : i - 9;
             ItemStack item = inv.getStackInSlot(index);
@@ -98,7 +95,7 @@ public class WorktableResultSlot extends Slot {
                 if (item.isEmpty()) {
                     inv.setInventorySlotContents(index, remaining);
                 } else if (ItemStack.areItemsEqual(item, remaining) && ItemStack.areItemStackTagsEqual(item, remaining)) {
-                    remaining.grow(item.getCount());
+                    // remaining.grow(item.getCount());
                     inv.setInventorySlotContents(index, remaining);
                 } else if (!this.player.inventory.addItemStackToInventory(remaining)) {
                     this.player.dropItem(remaining, false);

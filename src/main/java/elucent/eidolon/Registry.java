@@ -1,6 +1,5 @@
 package elucent.eidolon;
 
-import com.google.common.collect.Lists;
 import elucent.eidolon.block.*;
 import elucent.eidolon.entity.*;
 import elucent.eidolon.gui.SoulEnchanterContainer;
@@ -8,11 +7,9 @@ import elucent.eidolon.gui.WoodenBrewingStandContainer;
 import elucent.eidolon.gui.WorktableContainer;
 import elucent.eidolon.item.*;
 import elucent.eidolon.item.curio.*;
-import elucent.eidolon.mixin.PotionBrewingMixin;
 import elucent.eidolon.particle.*;
 import elucent.eidolon.potion.AnchoredEffect;
 import elucent.eidolon.potion.ChilledEffect;
-import elucent.eidolon.potion.StrictBrewingRecipe;
 import elucent.eidolon.ritual.*;
 import elucent.eidolon.spell.Sign;
 import elucent.eidolon.spell.Signs;
@@ -28,7 +25,6 @@ import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.*;
-import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.particles.ParticleType;
 import net.minecraft.potion.*;
 import net.minecraft.tileentity.TileEntity;
@@ -36,15 +32,12 @@ import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
-import net.minecraft.util.math.shapes.IBooleanFunction;
 import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.ParticleFactoryRegisterEvent;
 import net.minecraftforge.client.event.TextureStitchEvent;
-import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.ToolType;
-import net.minecraftforge.common.brewing.BrewingRecipeRegistry;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.RegistryObject;
@@ -406,11 +399,11 @@ public class Registry {
 
     public static void addBrewingRecipes() {
         System.out.println("calling addBrewingRecipes");
-        PotionBrewingMixin.callAddMix(Potions.WATER, Registry.FUNGUS_SPROUTS.get(), Potions.AWKWARD);
-        PotionBrewingMixin.callAddMix(Potions.AWKWARD, Registry.WRAITH_HEART.get(), Registry.CHILLED_POTION.get());
-        PotionBrewingMixin.callAddMix(Registry.CHILLED_POTION.get(), Items.REDSTONE, Registry.LONG_CHILLED_POTION.get());
-        PotionBrewingMixin.callAddMix(Potions.AWKWARD, Registry.WARPED_SPROUTS.get(), Registry.ANCHORED_POTION.get());
-        PotionBrewingMixin.callAddMix(Registry.ANCHORED_POTION.get(), Items.REDSTONE, Registry.LONG_ANCHORED_POTION.get());
+        PotionBrewing.addMix(Potions.WATER, Registry.FUNGUS_SPROUTS.get(), Potions.AWKWARD);
+        PotionBrewing.addMix(Potions.AWKWARD, Registry.WRAITH_HEART.get(), Registry.CHILLED_POTION.get());
+        PotionBrewing.addMix(Registry.CHILLED_POTION.get(), Items.REDSTONE, Registry.LONG_CHILLED_POTION.get());
+        PotionBrewing.addMix(Potions.AWKWARD, Registry.WARPED_SPROUTS.get(), Registry.ANCHORED_POTION.get());
+        PotionBrewing.addMix(Registry.ANCHORED_POTION.get(), Items.REDSTONE, Registry.LONG_ANCHORED_POTION.get());
     }
 
     @OnlyIn(Dist.CLIENT)
