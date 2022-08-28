@@ -175,8 +175,7 @@ public class Registry {
         registry.register(type);
         return type;
     }
-
-
+    
     public static RegistryObject<Item>
             LEAD_INGOT = addItem("lead_ingot"),
             RAW_LEAD = addItem("raw_lead"),

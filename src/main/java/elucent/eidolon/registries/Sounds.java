@@ -17,6 +17,11 @@ public class Sounds {
     public static RegistryObject<SoundEvent> SELECT_RUNE = addSound("select_rune");
     public static RegistryObject<SoundEvent> CHANT_WORD = addSound("chant_word");
     public static RegistryObject<SoundEvent> PAROUSIA = addSound("parousia");
+    public static RegistryObject<SoundEvent> WRAITH_DEATH = addSound("wraith_death"),
+    public static RegistryObject<SoundEvent> WRAITH_AMBIENT = addSound("wraith_ambient"),
+    public static RegistryObject<SoundEvent> WRAITH_HURT = addSound("wraith_hurt");
+
+
 
     static RegistryObject<SoundEvent> addSound(String name) {
         SoundEvent event = new SoundEvent(new ResourceLocation(Eidolon.MODID, name));
