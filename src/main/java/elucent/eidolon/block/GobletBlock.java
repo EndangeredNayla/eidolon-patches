@@ -6,8 +6,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
-import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
-
 public class GobletBlock extends BlockBase implements EntityBlock {
     public GobletBlock(Properties properties) {
         super(properties);

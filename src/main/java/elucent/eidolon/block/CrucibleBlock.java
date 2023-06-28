@@ -11,8 +11,6 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 
-import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
-
 public class CrucibleBlock extends BlockBase implements EntityBlock {
     public CrucibleBlock(Properties properties) {
         super(properties);
@@ -26,11 +24,6 @@ public class CrucibleBlock extends BlockBase implements EntityBlock {
     @Override
     @Nullable
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-        return new BlockEntityTicker<T>() {
-            @Override
-            public void tick(Level level, BlockPos pos, BlockState state, T tile) {
-                ((CrucibleTileEntity)tile).tick();
-            }
-        };
+        return (level1, pos, state1, tile) -> ((CrucibleTileEntity)tile).tick();
     }
 }

@@ -5,6 +5,7 @@
         "side": "eidolon:block/wooden_brewing_stand_side",
         "stand": "eidolon:block/wooden_brewing_stand"
     },
+    "render_type": "cutout_mipped",
     "elements": [
         {   "from": [ 7, 0, 7 ],
             "to": [ 9, 14, 9 ],

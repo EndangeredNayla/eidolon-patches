@@ -134,21 +134,6 @@ public class Eidolon {
         BlockEntityRenderers.register(Registry.CISTERN_TILE_ENTITY.get(), (trd) -> new CisternTileRenderer());
         BlockEntityRenderers.register(Registry.PIPE_TILE_ENTITY.get(), (trd) -> new PipeTileRenderer());
 
-        //TODO switch to new forge method
-        ItemBlockRenderTypes.setRenderLayer(Registry.ENCHANTED_ASH.get(), RenderType.cutoutMipped());
-        ItemBlockRenderTypes.setRenderLayer(Registry.WOODEN_STAND.get(), RenderType.cutoutMipped());
-        ItemBlockRenderTypes.setRenderLayer(Registry.GOBLET.get(), RenderType.cutoutMipped());
-        ItemBlockRenderTypes.setRenderLayer(Registry.UNHOLY_EFFIGY.get(), RenderType.cutoutMipped());
-        ItemBlockRenderTypes.setRenderLayer(Registry.INCUBATOR.get(), (t) -> t == RenderType.solid() || t == RenderType.translucent());
-        ItemBlockRenderTypes.setRenderLayer(Registry.GLASS_TUBE.get(), RenderType.translucent());
-        ItemBlockRenderTypes.setRenderLayer(Registry.CISTERN.get(), RenderType.translucent());
-        ItemBlockRenderTypes.setRenderLayer(Registry.MERAMMER_ROOT.get(), RenderType.cutoutMipped());
-        ItemBlockRenderTypes.setRenderLayer(Registry.SILDRIAN_SEED.get(), RenderType.cutoutMipped());
-        ItemBlockRenderTypes.setRenderLayer(Registry.OANNA_BLOOM.get(), RenderType.cutoutMipped());
-        ItemBlockRenderTypes.setRenderLayer(Registry.AVENNIAN_SPRIG.get(), RenderType.cutoutMipped());
-        ItemBlockRenderTypes.setRenderLayer(Registry.ILLWOOD_LEAVES.get(), RenderType.cutoutMipped());
-        ItemBlockRenderTypes.setRenderLayer(Registry.ILLWOOD_SAPLING.get(), RenderType.cutoutMipped());
-
         event.enqueueWork(() -> {
             MenuScreens.register(Registry.WORKTABLE_CONTAINER.get(), WorktableScreen::new);
             MenuScreens.register(Registry.SOUL_ENCHANTER_CONTAINER.get(), SoulEnchanterScreen::new);

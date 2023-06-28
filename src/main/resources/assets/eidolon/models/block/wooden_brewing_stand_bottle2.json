@@ -3,6 +3,7 @@
         "particle": "eidolon:block/wooden_brewing_stand",
         "stand": "eidolon:block/wooden_brewing_stand"
     },
+    "render_type": "cutout_mipped",
     "elements": [
         {   "from": [ -0.41, 0, 8 ],
             "to": [ 7.59, 16, 8 ],

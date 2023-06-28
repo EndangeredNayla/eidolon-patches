@@ -10,8 +10,6 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
-import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
-
 public class NecroticFocusBlock extends HorizontalWaterloggableBlock implements EntityBlock {
     final VoxelShape SOUTH = Shapes.box(0, 0, 0, 1, 1, 0.5);
     final VoxelShape NORTH = Shapes.box(0, 0, 0.5, 1, 1, 1);

@@ -91,8 +91,8 @@ public class Events {
     }
 
     @SubscribeEvent
-    public void onTarget(LivingSetAttackTargetEvent event) {
-        if (EntityUtil.isEnthralledBy(event.getEntity(), event.getTarget()))
+    public void onTarget(LivingChangeTargetEvent event) {
+        if (EntityUtil.isEnthralledBy(event.getEntity(), event.getOriginalTarget()))
             ((Mob) event.getEntity()).setTarget(null);
     }
 

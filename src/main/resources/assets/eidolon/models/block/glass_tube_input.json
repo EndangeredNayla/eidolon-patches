@@ -6,6 +6,7 @@
 		"0": "eidolon:block/glass_tube",
 		"particle": "eidolon:block/glass_tube"
 	},
+	"render_type": "translucent",
 	"elements": [
 		{
 			"from": [5.5, 5.5, -1],
