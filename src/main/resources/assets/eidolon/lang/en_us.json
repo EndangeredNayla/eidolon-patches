@@ -581,5 +581,7 @@
   
   "eidolon.codex.rune.sin": "A vile and wicked sigil. Adds one Wicked sign to the end of the spell.",
   "eidolon.codex.rune.crimson_rose": "Thrives upon bloodshed. Consumes two Wicked signs from the end of the spell, and adds one Blood sign in their place.",
-  "eidolon.codex.category.runes": "Runecraft"
+  "eidolon.codex.category.runes": "Runecraft",
+
+  "jei.eidolon_worktable": "Worktable"
 }
