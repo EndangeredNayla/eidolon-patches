@@ -1,8 +1,6 @@
 package elucent.eidolon.spell;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 import elucent.eidolon.Eidolon;
 import net.minecraft.resources.ResourceLocation;
@@ -35,6 +33,16 @@ public class Runes {
             public RuneResult doEffect(SignSequence seq) {
                 if (seq.removeRightmostN(Signs.WICKED_SIGN, 2)) {
                     seq.addRight(Signs.BLOOD_SIGN);
+                    return RuneResult.PASS;
+                }
+                return RuneResult.FAIL;
+            }
+        });
+        register(new Rune(new ResourceLocation(Eidolon.MODID, "ascend")) {
+            @Override
+            public RuneResult doEffect(SignSequence seq) {
+                if (seq.removeRightmost(Signs.BLOOD_SIGN)) {
+                    seq.addRight(Signs.SOUL_SIGN);
                     return RuneResult.PASS;
                 }
                 return RuneResult.FAIL;
