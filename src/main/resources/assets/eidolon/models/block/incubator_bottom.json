@@ -5,6 +5,7 @@
 	"textures": {
 		"particle": "eidolon:block/incubator_shared"
 	},
+	"render_type": "translucent",
 	"layers": {
 		"solid": {
 			"textures": {

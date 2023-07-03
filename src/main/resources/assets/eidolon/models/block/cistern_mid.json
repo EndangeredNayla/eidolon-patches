@@ -5,6 +5,7 @@
 		"2": "eidolon:block/cistern_mid",
 		"particle": "eidolon:block/cistern_bottom"
 	},
+	"render_type": "translucent",
 	"elements": [
 		{
 			"from": [1, 0, 1],

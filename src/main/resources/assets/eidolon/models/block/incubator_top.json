@@ -2,6 +2,7 @@
 	"credit": "Made with Blockbench",
 	"parent": "block/block",
 	"loader": "forge:multi-layer",
+	"render_type": "translucent",
 	"layers": {
 		"solid": {
 			"textures": {

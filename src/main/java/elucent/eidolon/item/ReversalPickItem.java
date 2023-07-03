@@ -2,6 +2,7 @@ package elucent.eidolon.item;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.resources.language.I18n;
+import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.Mth;
 import net.minecraft.world.item.Item;
@@ -42,7 +43,7 @@ public class ReversalPickItem extends PickaxeItem {
     @SubscribeEvent
     public static void onStartBreak(PlayerEvent.BreakSpeed event) {
         if (event.getEntity().getMainHandItem().getItem() instanceof ReversalPickItem) {
-            float hardness = event.getState().getDestroySpeed(event.getEntity().level, event.getPos());
+            float hardness = event.getState().getDestroySpeed(event.getEntity().level, event.getPosition().orElse(new BlockPos(0, -1, 0)));
             float adjHardness = 1 / (hardness / 2.0f);
             float newSpeed = Mth.sqrt(event.getOriginalSpeed() * 0.25f) * Mth.sqrt(hardness / adjHardness);
             event.setNewSpeed(newSpeed * newSpeed);
