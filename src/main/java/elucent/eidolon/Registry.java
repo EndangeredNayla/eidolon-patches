@@ -22,6 +22,7 @@ import elucent.eidolon.registries.Sounds;
 import elucent.eidolon.tile.*;
 import elucent.eidolon.tile.reagent.CisternTileEntity;
 import elucent.eidolon.tile.reagent.PipeTileEntity;
+import elucent.eidolon.world.tree.IllwoodTreeGrower;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.commands.synchronization.ArgumentTypeInfo;
@@ -46,6 +47,7 @@ import net.minecraft.world.item.*;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.grower.AzaleaTreeGrower;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
@@ -122,7 +124,7 @@ public class Registry {
         final DeferredRegister<Block> registry;
         final String basename;
         final BlockBehaviour.Properties props;
-        RegistryObject<Block> full = null, slab = null, stair = null, wall = null, fence = null, fence_gate = null;
+        RegistryObject<Block> full, slab, stair, wall, fence, fence_gate;
 
         public DecoBlockPack(DeferredRegister<Block> blocks, String basename, BlockBehaviour.Properties props) {
             this.registry = blocks;
@@ -419,8 +421,8 @@ public class Registry {
             .sound(SoundType.GRASS).noOcclusion()));
     public static final RegistryObject<Block> SILDRIAN_SEED = addBlock("sildrian_seed", () -> new HerbBlockBase(blockProps(Material.PLANT, MaterialColor.GRASS)
             .sound(SoundType.GRASS).noOcclusion()));
-    public static final RegistryObject<Block> ILLWOOD_SAPLING = addBlock("illwood_sapling", () -> new BushBlock(blockProps(Material.PLANT, MaterialColor.GRASS)
-            .sound(SoundType.GRASS).noOcclusion().noCollission()));
+    public static final RegistryObject<Block> ILLWOOD_SAPLING = addBlock("illwood_sapling", () -> new SaplingBlock(new IllwoodTreeGrower(), blockProps(Material.PLANT, MaterialColor.GRASS)
+            .sound(SoundType.GRASS).noOcclusion().noCollission().randomTicks()));
     public static final RegistryObject<Block> ILLWOOD_LEAVES = addBlock("illwood_leaves", () -> new BlockBase(blockProps(Material.PLANT, MaterialColor.GRASS)
             .sound(SoundType.GRASS).noOcclusion()));
     public static RegistryObject<Block> ILLWOOD_LOG = addBlock("illwood_log", () -> new RotatedPillarBlock(blockProps(Material.WOOD, MaterialColor.WOOD)
