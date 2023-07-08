@@ -17,24 +17,20 @@ import elucent.eidolon.registries.Potions;
 import elucent.eidolon.research.Researches;
 import elucent.eidolon.ritual.RitualRegistry;
 import elucent.eidolon.spell.AltarEntries;
+import elucent.eidolon.spell.DarkTouchSpell;
 import elucent.eidolon.spell.Runes;
-import elucent.eidolon.tile.BrazierTileRenderer;
-import elucent.eidolon.tile.CrucibleTileRenderer;
-import elucent.eidolon.tile.GobletTileRenderer;
-import elucent.eidolon.tile.HandTileRenderer;
-import elucent.eidolon.tile.NecroticFocusTileRenderer;
-import elucent.eidolon.tile.SoulEnchanterTileRenderer;
+
+import elucent.eidolon.tile.*;
 import elucent.eidolon.tile.reagent.CisternTileRenderer;
 import elucent.eidolon.tile.reagent.PipeTileRenderer;
+import elucent.eidolon.world.WorldGen;
 import net.minecraft.client.gui.screens.MenuScreens;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
-import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobType;
 import net.minecraft.world.entity.SpawnPlacements;
-import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.levelgen.Heightmap;
@@ -82,6 +78,7 @@ public class Eidolon {
         ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, ClientConfig.SPEC);
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.SPEC);
         FMLJavaModLoadingContext.get().getModEventBus().register(new Registry());
+        WorldGen.register(FMLJavaModLoadingContext.get().getModEventBus());
         Registry.init();
         proxy.init();
         MinecraftForge.EVENT_BUS.register(this);
@@ -111,6 +108,7 @@ public class Eidolon {
             Runes.init();
             AthameItem.initHarvestables();
             CodexChapters.init();
+            DarkTouchSpell.init();
         });
 
         SpawnPlacements.register(Entities.ZOMBIE_BRUTE.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,

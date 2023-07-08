@@ -29,7 +29,7 @@ public class CodexChapters {
     static Chapter NATURE_INDEX, MONSTERS, ORES, PEWTER, ENCHANTED_ASH,
         RITUALS_INDEX, BRAZIER, ITEM_PROVIDERS, CRYSTAL_RITUAL, SUMMON_RITUAL, ALLURE_RITUAL, REPELLING_RITUAL, DECEIT_RITUAL, TIME_RITUALS, PURIFY_RITUAL, SANGUINE_RITUAL,
         ARTIFICE_INDEX, WOODEN_STAND, TALLOW, CRUCIBLE, ARCANE_GOLD, REAGENTS, SOUL_GEMS, SHADOW_GEM, WARPED_SPROUTS, BASIC_ALCHEMY, INLAYS, BASIC_BAUBLES, MAGIC_WORKBENCH, VOID_AMULET, WARDED_MAIL, SOULFIRE_WAND, BONECHILL_WAND, REAPER_SCYTHE, CLEAVING_AXE, SOUL_ENCHANTER, REVERSAL_PICK, WARLOCK_ARMOR, GRAVITY_BELT, PRESTIGIOUS_PALM, MIND_SHIELDING_PLATE, RESOLUTE_BELT, GLASS_HAND,
-        THEURGY_INDEX, INTRO_SIGNS, EFFIGY, ALTARS, ALTAR_LIGHTS, ALTAR_SKULLS, ALTAR_HERBS, GOBLET, DARK_PRAYER, ANIMAL_SACRIFICE, DARK_TOUCH, STONE_ALTAR, UNHOLY_EFFIGY, VILLAGER_SACRIFICE,
+        THEURGY_INDEX, INTRO_SIGNS, RESEARCH, EFFIGY, ALTARS, ALTAR_LIGHTS, ALTAR_SKULLS, ALTAR_HERBS, GOBLET, DARK_PRAYER, ANIMAL_SACRIFICE, DARK_TOUCH, STONE_ALTAR, UNHOLY_EFFIGY, VILLAGER_SACRIFICE,
         SIGNS_INDEX, WICKED_SIGN, SACRED_SIGN, BLOOD_SIGN, SOUL_SIGN, MIND_SIGN, FLAME_SIGN, WINTER_SIGN, HARMONY_SIGN, DEATH_SIGN, WARDING_SIGN, MAGIC_SIGN,
         RUNES_INDEX;
 
@@ -649,6 +649,15 @@ public class CodexChapters {
             new TextPage("eidolon.codex.page.intro_signs.1")
         );
 
+        RESEARCH = new Chapter(
+            "eidolon.codex.chapter.research",
+            new TitlePage("eidolon.codex.page.research.0"),
+            new CraftingPage(new ItemStack(Registry.NOTETAKING_TOOLS.get()),
+                new ItemStack(Registry.PARCHMENT.get()), new ItemStack(Registry.MAGIC_INK.get()), ItemStack.EMPTY,
+                new ItemStack(Items.FEATHER), new ItemStack(Registry.ARCANE_GOLD_NUGGET.get()), ItemStack.EMPTY,
+                ItemStack.EMPTY, ItemStack.EMPTY, ItemStack.EMPTY)
+        );
+
         EFFIGY = new Chapter(
             "eidolon.codex.chapter.effigy",
             new TitlePage("eidolon.codex.page.effigy"),
@@ -752,19 +761,22 @@ public class CodexChapters {
             new TitledIndexPage(
                 "eidolon.codex.page.theurgy",
                 new IndexEntry(INTRO_SIGNS, new ItemStack(Items.PAPER)),
+                new IndexEntry(RESEARCH, new ItemStack(Registry.NOTETAKING_TOOLS.get())),
                 new IndexEntry(EFFIGY, new ItemStack(Registry.STRAW_EFFIGY.get())),
                 new IndexEntry(ALTARS, new ItemStack(Registry.WOODEN_ALTAR.get())),
                 new IndexEntry(ALTAR_LIGHTS, new ItemStack(Registry.CANDLE.get())),
-                new IndexEntry(ALTAR_SKULLS, new ItemStack(Items.SKELETON_SKULL)),
-                new IndexEntry(ALTAR_HERBS, new ItemStack(Items.WITHER_ROSE))
+                new IndexEntry(ALTAR_SKULLS, new ItemStack(Items.SKELETON_SKULL))
             ),
             new IndexPage(
+                new IndexEntry(ALTAR_HERBS, new ItemStack(Items.WITHER_ROSE)),
                 new IndexEntry(GOBLET, new ItemStack(Registry.GOBLET.get())),
                 new SignLockedEntry(DARK_PRAYER, new ItemStack(Registry.SHADOW_GEM.get()), Signs.WICKED_SIGN),
                 new SignLockedEntry(ANIMAL_SACRIFICE, new ItemStack(Items.PORKCHOP), Signs.BLOOD_SIGN),
                 new SignLockedEntry(DARK_TOUCH, new ItemStack(Registry.UNHOLY_SYMBOL.get()), Signs.SOUL_SIGN, Signs.WICKED_SIGN),
                 new SignLockedEntry(STONE_ALTAR, new ItemStack(Registry.STONE_ALTAR.get()), Signs.SOUL_SIGN),
-                new SignLockedEntry(UNHOLY_EFFIGY, new ItemStack(Registry.UNHOLY_EFFIGY.get()), Signs.WICKED_SIGN, Signs.SOUL_SIGN, Signs.WICKED_SIGN),
+                new SignLockedEntry(UNHOLY_EFFIGY, new ItemStack(Registry.UNHOLY_EFFIGY.get()), Signs.WICKED_SIGN, Signs.SOUL_SIGN, Signs.WICKED_SIGN)
+            ),
+            new IndexPage(
                 new FactLockedEntry(VILLAGER_SACRIFICE, new ItemStack(Items.IRON_SWORD), Facts.VILLAGER_SACRIFICE)
             )
         );
