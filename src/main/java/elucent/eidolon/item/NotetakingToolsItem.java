@@ -29,13 +29,13 @@ public class NotetakingToolsItem extends ItemBase {
 
     @Override
     public void inventoryTick(ItemStack stack, Level level, Entity entity, int slotID, boolean isSelected) {
-        if (isSelected && level instanceof ClientLevel clientLevel && clientLevel.getGameTime() % 10 == 0) {
+        if (isSelected && level instanceof ClientLevel clientLevel && clientLevel.getGameTime() % 5 == 0) {
             List<Entity> entities = new ArrayList<>();
             List<BlockPos> blocks = new ArrayList<>();
 
             BlockPos.betweenClosed(entity.getOnPos().offset(-4, -4, -4), entity.getOnPos().offset(4, 4, 4)).forEach(pos -> {
                 if (!Researches.getBlockResearches(clientLevel.getBlockState(pos).getBlock()).isEmpty())
-                    blocks.add(pos);
+                    blocks.add(pos.immutable());
             });
 
             clientLevel.entitiesForRendering().forEach(target -> {
@@ -45,24 +45,25 @@ public class NotetakingToolsItem extends ItemBase {
 
             for (Entity target : entities) {
                 Particles.create(elucent.eidolon.registries.Particles.SPARKLE_PARTICLE.get())
-                        .setAlpha(0.4f, 0).setScale(0.125f, 0.0f).setLifetime(80)
-                        .randomOffset(target.getBbWidth(), 0.4).randomVelocity(0, 0.015f)
-                        .setColor(0.79f,  0.87f,  1)
-                        .addVelocity(0, 0.0125f, 0)
+                        .setAlpha(0.4f, 0).setScale(0.125f, 0.0f).setLifetime(25)
+                        .randomOffset(target.getBbWidth(), 0.4)
+                        .setColor(0.33f,  0.38f,  0.91f)
+                        .addVelocity(0, 0.1f, 0)
                         .setScale(0.15f)
                         .setSpin(0.1f)
                         .repeat(clientLevel, target.getX(), target.getY()+0.3, target.getZ(), 5);
             }
 
             for (BlockPos pos : blocks) {
+                var state = level.getBlockState(pos);
                 Particles.create(elucent.eidolon.registries.Particles.SPARKLE_PARTICLE.get())
-                        .setAlpha(0.4f, 0).setScale(0.125f, 0.0f).setLifetime(80)
-                        .randomOffset(0.5f, 0.5).randomVelocity(0, 0.015f)
-                        .setColor(0.79f,  0.87f,  1)
-                        .addVelocity(0, 0.0125f, 0)
+                        .setAlpha(0.4f, 0).setScale(0.125f, 0.0f).setLifetime(20)
+                        .randomOffset(level.getBlockState(pos).getCollisionShape(level, pos).bounds().getSize()-0.2, 0.5)
+                        .setColor(0.33f,  0.38f,  0.91f)
+                        .addVelocity(0, 0.1f, 0)
                         .setScale(0.15f)
                         .setSpin(0.1f)
-                        .repeat(clientLevel, pos.getX(), pos.getY()+1, pos.getZ(),5);
+                        .repeat(clientLevel, pos.getX()+0.5, pos.getY()+0.5, pos.getZ()+0.5,10);
             }
         }
     }
