@@ -55,10 +55,9 @@ public class NotetakingToolsItem extends ItemBase {
             }
 
             for (BlockPos pos : blocks) {
-                var state = level.getBlockState(pos);
                 Particles.create(elucent.eidolon.registries.Particles.SPARKLE_PARTICLE.get())
                         .setAlpha(0.4f, 0).setScale(0.125f, 0.0f).setLifetime(20)
-                        .randomOffset(level.getBlockState(pos).getCollisionShape(level, pos).bounds().getSize()-0.2, 0.5)
+                        .randomOffset(1, 0.5)
                         .setColor(0.33f,  0.38f,  0.91f)
                         .addVelocity(0, 0.1f, 0)
                         .setScale(0.15f)
