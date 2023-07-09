@@ -1,9 +1,11 @@
 package elucent.eidolon.spell;
 
-import java.util.*;
-
 import elucent.eidolon.Eidolon;
 import net.minecraft.resources.ResourceLocation;
+
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Runes {
     static final Map<ResourceLocation, Rune> runes = new HashMap<>();

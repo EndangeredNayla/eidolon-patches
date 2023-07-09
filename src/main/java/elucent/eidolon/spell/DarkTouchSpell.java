@@ -1,29 +1,35 @@
 package elucent.eidolon.spell;
 
-import java.util.List;
-
 import elucent.eidolon.Eidolon;
 import elucent.eidolon.Registry;
 import elucent.eidolon.capability.IReputation;
 import elucent.eidolon.deity.Deities;
 import elucent.eidolon.network.MagicBurstEffectPacket;
 import elucent.eidolon.network.Networking;
+import net.minecraft.core.BlockPos;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.RecordItem;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.sounds.SoundSource;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.world.phys.AABB;
-import net.minecraft.core.BlockPos;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ClipContext;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
-import net.minecraft.world.level.Level;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class DarkTouchSpell extends StaticSpell {
+    public static final Map<Ingredient, ItemStack> conversions = new HashMap<>();
     public static final String NECROTIC_KEY = new ResourceLocation(Eidolon.MODID, "necrotic").toString();
 
     public DarkTouchSpell(ResourceLocation name, Sign... signs) {
@@ -71,28 +77,22 @@ public class DarkTouchSpell extends StaticSpell {
         List<ItemEntity> items = world.getEntitiesOfClass(ItemEntity.class, new AABB(v.x - 1.5, v.y - 1.5, v.z - 1.5, v.x + 1.5, v.y + 1.5, v.z + 1.5));
         if (items.size() != 1) return false;
         ItemStack stack = items.get(0).getItem();
-        return stack.getCount() == 1 && canTouch(stack);
+        return stack.getCount() == 1 && !touchResult(stack).isEmpty();
     }
 
-    boolean canTouch(ItemStack stack) {
-        return stack.getItem() == Registry.PEWTER_INLAY.get()             // is pewter
-               || stack.getItem() == Items.BLACK_WOOL
-               || (stack.getItem() instanceof RecordItem && stack.getItem() != Registry.PAROUSIA_DISC.get());
-            // || (stack.isDamageable() && stack.getMaxStackSize() == 1); // is tool
-    }
+    ItemStack touchResult(ItemStack stack) {
+        //long start = System.nanoTime();
+        var keys = conversions.keySet();
 
-    ItemStack touchResult(ItemStack stack) { // assumes canTouch is true
-        if (stack.getItem() == Registry.PEWTER_INLAY.get())
-            return new ItemStack(Registry.UNHOLY_SYMBOL.get());
-        else if (stack.getItem() == Items.BLACK_WOOL)
-            return new ItemStack(Registry.TOP_HAT.get());
-        else if (stack.getItem() instanceof RecordItem && stack.getItem() != Registry.PAROUSIA_DISC.get())
-            return new ItemStack(Registry.PAROUSIA_DISC.get());
-//        else {
-//            stack.getOrCreateTag().putBoolean(NECROTIC_KEY, true);
-//            return stack;
-//        }
-        else return stack;
+        for (Ingredient key : keys) {
+            if (key.test(stack)) {
+                //long end = System.nanoTime();
+                //System.out.println(end - start);
+                return conversions.get(key);
+            }
+        }
+
+        return ItemStack.EMPTY;
     }
 
     @Override
@@ -102,9 +102,9 @@ public class DarkTouchSpell extends StaticSpell {
         List<ItemEntity> items = world.getEntitiesOfClass(ItemEntity.class, new AABB(v.x - 1.5, v.y - 1.5, v.z - 1.5, v.x + 1.5, v.y + 1.5, v.z + 1.5));
         if (items.size() == 1) {
             if (!world.isClientSide) {
-                ItemStack stack = items.get(0).getItem();
-                if (canTouch(stack)) {
-                    items.get(0).setItem(touchResult(stack));
+                ItemStack result = touchResult(items.get(0).getItem());
+                if (!result.isEmpty()) {
+                    items.get(0).setItem(result);
                     Vec3 p = items.get(0).position();
                     items.get(0).setDefaultPickUpDelay();
                     Networking.sendToTracking(world, items.get(0).blockPosition(), new MagicBurstEffectPacket(p.x, p.y, p.z, Signs.WICKED_SIGN.getColor(), Signs.BLOOD_SIGN.getColor()));
@@ -113,5 +113,20 @@ public class DarkTouchSpell extends StaticSpell {
                 world.playSound(player, player.blockPosition(), SoundEvents.ENCHANTMENT_TABLE_USE, SoundSource.NEUTRAL, 1.0F, 0.6F + world.random.nextFloat() * 0.2F);
             }
         }
+    }
+
+    private static void addConversion(Item input, Item output) {
+        conversions.put(Ingredient.of(input), new ItemStack(output));
+    }
+
+    private static void addConversion(TagKey<Item> input, Item output) {
+        conversions.put(Ingredient.of(input), new ItemStack(output));
+    }
+
+    public static void init() {
+        addConversion(Registry.PEWTER_INLAY.get(), Registry.UNHOLY_SYMBOL.get());
+        addConversion(Items.BLACK_WOOL, Registry.TOP_HAT.get());
+        addConversion(ItemTags.MUSIC_DISCS, Registry.PAROUSIA_DISC.get());
+        addConversion(ItemTags.SAPLINGS, Registry.ILLWOOD_SAPLING.get().asItem());
     }
 }
