@@ -16,6 +16,7 @@ import net.minecraft.world.entity.boss.enderdragon.EnderDragon;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.EnderMan;
 import net.minecraft.world.entity.monster.Endermite;
+import net.minecraft.world.entity.monster.Shulker;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.SwordItem;
@@ -61,7 +62,7 @@ public class AthameItem extends SwordItem {
     public void onHurt(LivingHurtEvent event) {
         if (event.getSource().getEntity() instanceof LivingEntity
             && ((LivingEntity)event.getSource().getEntity()).getMainHandItem().getItem() instanceof AthameItem
-            && (event.getEntity() instanceof EnderMan || event.getEntity() instanceof Endermite || event.getEntity() instanceof EnderDragon)) {
+            && (event.getEntity() instanceof EnderMan || event.getEntity() instanceof Endermite || event.getEntity() instanceof EnderDragon || event.getEntity() instanceof Shulker)) {
             event.setAmount(event.getAmount() * 4);
         }
     }
@@ -102,9 +103,7 @@ public class AthameItem extends SwordItem {
                             ctx.getLevel().playSound(null, ctx.getClickedPos(), SoundEvents.EXPERIENCE_ORB_PICKUP, SoundSource.PLAYERS, 0.5f, 0.9f + random.nextFloat() * 0.2f);
                             ctx.getLevel().addFreshEntity(new ItemEntity(ctx.getLevel(), ctx.getClickedPos().getX() + 0.5, ctx.getClickedPos().getY() + 0.5, ctx.getClickedPos().getZ() + 0.5, drop.copy()));
                         }
-                        if (!ctx.getPlayer().isCreative()) ctx.getItemInHand().hurtAndBreak(1, ctx.getPlayer(), (player) -> {
-                            player.broadcastBreakEvent(ctx.getHand());
-                        });
+                        if (!ctx.getPlayer().isCreative()) ctx.getItemInHand().hurtAndBreak(1, ctx.getPlayer(), (player) -> player.broadcastBreakEvent(ctx.getHand()));
                     }
                 }
             }

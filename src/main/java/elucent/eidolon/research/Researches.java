@@ -7,6 +7,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
@@ -66,5 +67,6 @@ public class Researches {
         addTask(ResearchTask.XP::new);
         addTask(ResearchTask.XP::new);
         register(new Research(new ResourceLocation(Eidolon.MODID, "gluttony"), 5), EntityType.PIG);
+        register(new Research(new ResourceLocation(Eidolon.MODID, "test_block_research"), 1), Blocks.IRON_BLOCK);
     }
 }
