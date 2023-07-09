@@ -28,7 +28,7 @@ public class CodexChapters {
 
     static Chapter NATURE_INDEX, MONSTERS, ORES, PEWTER, ENCHANTED_ASH,
         RITUALS_INDEX, BRAZIER, ITEM_PROVIDERS, CRYSTAL_RITUAL, SUMMON_RITUAL, ALLURE_RITUAL, REPELLING_RITUAL, DECEIT_RITUAL, TIME_RITUALS, PURIFY_RITUAL, SANGUINE_RITUAL,
-        ARTIFICE_INDEX, WOODEN_STAND, TALLOW, CRUCIBLE, ARCANE_GOLD, REAGENTS, SOUL_GEMS, SHADOW_GEM, WARPED_SPROUTS, BASIC_ALCHEMY, INLAYS, BASIC_BAUBLES, MAGIC_WORKBENCH, VOID_AMULET, WARDED_MAIL, SOULFIRE_WAND, BONECHILL_WAND, REAPER_SCYTHE, CLEAVING_AXE, SOUL_ENCHANTER, REVERSAL_PICK, WARLOCK_ARMOR, GRAVITY_BELT, PRESTIGIOUS_PALM, MIND_SHIELDING_PLATE, RESOLUTE_BELT, GLASS_HAND,
+        ARTIFICE_INDEX, WOODEN_STAND, TALLOW, CRUCIBLE, ARCANE_GOLD, REAGENTS, SOUL_GEMS, SHADOW_GEM, WARPED_SPROUTS, BASIC_ALCHEMY, INLAYS, BASIC_BAUBLES, MAGIC_WORKBENCH, VOID_AMULET, WARDED_MAIL, SOULFIRE_WAND, BONECHILL_WAND, REAPER_SCYTHE, CLEAVING_AXE, SOUL_ENCHANTER, REVERSAL_PICK, WARLOCK_ARMOR, GRAVITY_BELT, PRESTIGIOUS_PALM, MIND_SHIELDING_PLATE, RESOLUTE_BELT, GLASS_HAND, ATHAME,
         THEURGY_INDEX, INTRO_SIGNS, RESEARCH, EFFIGY, ALTARS, ALTAR_LIGHTS, ALTAR_SKULLS, ALTAR_HERBS, GOBLET, DARK_PRAYER, ANIMAL_SACRIFICE, DARK_TOUCH, STONE_ALTAR, UNHOLY_EFFIGY, VILLAGER_SACRIFICE,
         SIGNS_INDEX, WICKED_SIGN, SACRED_SIGN, BLOOD_SIGN, SOUL_SIGN, MIND_SIGN, FLAME_SIGN, WINTER_SIGN, HARMONY_SIGN, DEATH_SIGN, WARDING_SIGN, MAGIC_SIGN,
         RUNES_INDEX;
@@ -598,6 +598,16 @@ public class CodexChapters {
                 new ItemStack(Registry.ZOMBIE_HEART.get()), new ItemStack(Registry.LESSER_SOUL_GEM.get()), new ItemStack(Registry.WRAITH_HEART.get()), new ItemStack(Registry.LESSER_SOUL_GEM.get()))
         );
 
+        ATHAME = new Chapter(
+            "eidolon.codex.chapter.athame",
+            new TitlePage("eidolon.codex.page.athame"),
+            new WorktablePage(new ItemStack(Registry.ATHAME.get()),
+                ItemStack.EMPTY, ItemStack.EMPTY, new ItemStack(Registry.PEWTER_INGOT.get()),
+                ItemStack.EMPTY, new ItemStack(Registry.PEWTER_INLAY.get()), ItemStack.EMPTY,
+                new ItemStack(Items.ENDER_PEARL), ItemStack.EMPTY, ItemStack.EMPTY,
+                new ItemStack(Items.GOLD_NUGGET), ItemStack.EMPTY, new ItemStack(Registry.SILVER_NUGGET.get()), ItemStack.EMPTY)
+        );
+
         ARTIFICE_INDEX = new Chapter(
             "eidolon.codex.chapter.artifice",
             new TitledIndexPage("eidolon.codex.page.artifice",
@@ -632,7 +642,9 @@ public class CodexChapters {
                 new IndexEntry(PRESTIGIOUS_PALM, new ItemStack(Registry.PRESTIGIOUS_PALM.get())),
                 new IndexEntry(MIND_SHIELDING_PLATE, new ItemStack(Registry.MIND_SHIELDING_PLATE.get())),
                 new IndexEntry(RESOLUTE_BELT, new ItemStack(Registry.RESOLUTE_BELT.get())),
-                new IndexEntry(GLASS_HAND, new ItemStack(Registry.GLASS_HAND.get()))
+                new IndexEntry(GLASS_HAND, new ItemStack(Registry.GLASS_HAND.get())),
+                new IndexEntry(ATHAME, new ItemStack(Registry.ATHAME.get()))
+                
             )
         );
 
