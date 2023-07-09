@@ -40,7 +40,7 @@ public class ClientEvents {
                 RenderUtil.GLOWING_BLOCK_PARTICLE,
                 RenderUtil.GLOWING,
                 RenderUtil.GLOWING_SPRITE}) {
-                buffers.put(type, new BufferBuilder(ModList.get().isLoaded("rubidium") ? 262144 : type.bufferSize()));
+                buffers.put(type, new BufferBuilder(ModList.get().isLoaded("rubidium") ? 32768 : type.bufferSize()));
             }
             DELAYED_RENDER = MultiBufferSource.immediateWithBuffers(buffers, new BufferBuilder(128));
         }
