@@ -655,7 +655,13 @@ public class CodexChapters {
             new CraftingPage(new ItemStack(Registry.NOTETAKING_TOOLS.get()),
                 new ItemStack(Registry.PARCHMENT.get()), new ItemStack(Registry.MAGIC_INK.get()), ItemStack.EMPTY,
                 new ItemStack(Items.FEATHER), new ItemStack(Registry.ARCANE_GOLD_NUGGET.get()), ItemStack.EMPTY,
-                ItemStack.EMPTY, ItemStack.EMPTY, ItemStack.EMPTY)
+                ItemStack.EMPTY, ItemStack.EMPTY, ItemStack.EMPTY),
+            new TextPage("eidolon.codex.page.research.1"),
+            new CraftingPage(new ItemStack(Registry.RESEARCH_TABLE.get()),
+                ItemStack.EMPTY, new ItemStack(Registry.MAGIC_CANDLE.get()), ItemStack.EMPTY,
+                new ItemStack(Items.RED_CARPET), new ItemStack(Items.RED_CARPET), new ItemStack(Items.RED_CARPET),
+                new ItemStack(Items.OAK_PLANKS), new ItemStack(Items.OAK_PLANKS), new ItemStack(Items.OAK_PLANKS)
+            )
         );
 
         EFFIGY = new Chapter(
