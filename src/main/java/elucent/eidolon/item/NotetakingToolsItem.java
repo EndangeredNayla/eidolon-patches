@@ -16,6 +16,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -28,8 +30,9 @@ public class NotetakingToolsItem extends ItemBase {
     }
 
     @Override
+    @OnlyIn(Dist.CLIENT)
     public void inventoryTick(ItemStack stack, Level level, Entity entity, int slotID, boolean isSelected) {
-        if (isSelected && level instanceof ClientLevel clientLevel && clientLevel.getGameTime() % 5 == 0) {
+        if (isSelected && level instanceof ClientLevel clientLevel && level.getGameTime() % 5 == 0) {
             List<Entity> entities = new ArrayList<>();
             List<BlockPos> blocks = new ArrayList<>();
 
@@ -45,7 +48,7 @@ public class NotetakingToolsItem extends ItemBase {
 
             for (Entity target : entities) {
                 Particles.create(elucent.eidolon.registries.Particles.SPARKLE_PARTICLE.get())
-                        .setAlpha(0.4f, 0).setScale(0.125f, 0.0f).setLifetime(25)
+                        .setAlpha(0.6f, 0).setScale(0.125f, 0.0f).setLifetime(25)
                         .randomOffset(target.getBbWidth(), 0.4)
                         .setColor(0.33f,  0.38f,  0.91f)
                         .addVelocity(0, 0.1f, 0)
@@ -56,7 +59,7 @@ public class NotetakingToolsItem extends ItemBase {
 
             for (BlockPos pos : blocks) {
                 Particles.create(elucent.eidolon.registries.Particles.SPARKLE_PARTICLE.get())
-                        .setAlpha(0.4f, 0).setScale(0.125f, 0.0f).setLifetime(20)
+                        .setAlpha(0.6f, 0).setScale(0.125f, 0.0f).setLifetime(20)
                         .randomOffset(1, 0.5)
                         .setColor(0.33f,  0.38f,  0.91f)
                         .addVelocity(0, 0.1f, 0)

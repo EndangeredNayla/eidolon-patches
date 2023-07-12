@@ -3,7 +3,6 @@ package elucent.eidolon.util;
 import elucent.eidolon.capability.IKnowledge;
 import elucent.eidolon.network.KnowledgeUpdatePacket;
 import elucent.eidolon.network.Networking;
-import elucent.eidolon.research.Researches;
 import elucent.eidolon.spell.Rune;
 import elucent.eidolon.spell.Sign;
 import net.minecraft.ChatFormatting;
@@ -43,7 +42,7 @@ public class KnowledgeUtil {
             if (k.knowsResearch(research)) return;
             k.addResearch(research);
 
-            ((ServerPlayer) entity).connection.send(new ClientboundSetActionBarTextPacket(Component.translatable("eidolon.title.new_research", ChatFormatting.GOLD + Researches.find(research).getName())));
+            ((ServerPlayer) entity).connection.send(new ClientboundSetActionBarTextPacket(Component.translatable("eidolon.title.new_research", Component.translatable("research." + research.getNamespace() + "." + research.getPath()).withStyle(ChatFormatting.GOLD))));
             Networking.sendTo((Player) entity, new KnowledgeUpdatePacket((Player) entity, true));
         });
     }
