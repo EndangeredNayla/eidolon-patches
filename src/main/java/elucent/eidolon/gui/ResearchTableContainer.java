@@ -226,7 +226,7 @@ public class ResearchTableContainer extends AbstractContainerMenu implements Con
             ResearchTask toComplete = tasks.get(index);
             int startingSlot = 38;
             for (int i = 0; i < index; i ++) startingSlot += tasks.get(i).getSlotCount();
-            if (!toComplete.isComplete(this, player, startingSlot).complete()) return;
+            if (toComplete.isComplete(this, player, startingSlot).complete() && player.isLocalPlayer()) return;
             toComplete.onComplete(this, player, startingSlot);
             this.setData(0, 200); // start progress countdown.
             this.broadcastChanges();
