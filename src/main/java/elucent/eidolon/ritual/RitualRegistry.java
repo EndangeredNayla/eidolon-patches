@@ -15,6 +15,7 @@ import elucent.eidolon.Registry;
 import elucent.eidolon.codex.Page;
 import elucent.eidolon.codex.RitualPage;
 import elucent.eidolon.gui.jei.RecipeWrappers;
+import elucent.eidolon.recipe.jei.RitualRecipeWrapper;
 import elucent.eidolon.registries.Entities;
 import elucent.eidolon.util.RecipeUtil;
 import net.minecraft.tags.TagKey;
@@ -103,7 +104,7 @@ public class RitualRegistry {
         return new RitualPage(ritual, center, inputs.toArray(new RitualPage.RitualIngredient[0]));
     }
 
-    public static List<RecipeWrappers.RitualRecipe> getWrappedRecipes() {
+    public static List<RecipeWrappers.RitualRecipe> getWrappedRecipesPage() {
         List<RecipeWrappers.RitualRecipe> wrappers = new ArrayList<>();
         for (Map.Entry<ResourceLocation, Ritual> entry : rituals.entrySet()) {
             Object sacrifice = matches.inverse().getOrDefault(entry.getValue(), null);
@@ -112,6 +113,18 @@ public class RitualRegistry {
                 entry.getValue(),
                 page,
                 sacrifice
+            ));
+        }
+        return wrappers;
+    }
+
+    public static List<RitualRecipeWrapper> getWrappedRecipes() {
+        List<RitualRecipeWrapper> wrappers = new ArrayList<>();
+        for (Map.Entry<ResourceLocation, Ritual> entry : rituals.entrySet()) {
+            Object sacrifice = matches.inverse().getOrDefault(entry.getValue(), null);
+            wrappers.add(new RitualRecipeWrapper(
+                    entry.getValue(),
+                    sacrifice
             ));
         }
         return wrappers;
@@ -275,15 +288,17 @@ public class RitualRegistry {
             .addRequirement(new ItemRequirement(Registry.LESSER_SOUL_GEM.get()))
             .addRequirement(new HealthRequirement(40)));
 
-        RECHARGE_SOULFIRE_RITUAL = register(Registry.LESSER_SOUL_GEM.get(), new RechargingRitual().setRegistryName(Eidolon.MODID, "recharging")
+        RECHARGE_SOULFIRE_RITUAL = register(Registry.LESSER_SOUL_GEM.get(), new RechargingRitual().setRegistryName(Eidolon.MODID, "soulfire_recharging")
             .addRequirement(new ItemRequirement(Items.BLAZE_POWDER))
             .addRequirement(new ItemRequirement(Items.BLAZE_POWDER))
             .addRequirement(new ItemRequirement(Tags.Items.DUSTS_REDSTONE))
+            .addRequirement(new ItemRequirement(Tags.Items.DUSTS_REDSTONE))
             .addInvariant(new FocusItemPresentRequirement(Registry.SOULFIRE_WAND.get())));
 
-        RECHARGE_BONECHILL_RITUAL = register(Registry.LESSER_SOUL_GEM.get(), new RechargingRitual().setRegistryName(Eidolon.MODID, "recharging")
+        RECHARGE_BONECHILL_RITUAL = register(Registry.LESSER_SOUL_GEM.get(), new RechargingRitual().setRegistryName(Eidolon.MODID, "bonechill_recharging")
             .addRequirement(new ItemRequirement(Items.SNOWBALL))
             .addRequirement(new ItemRequirement(Items.SNOWBALL))
+            .addRequirement(new ItemRequirement(Tags.Items.DUSTS_REDSTONE))
             .addRequirement(new ItemRequirement(Tags.Items.DUSTS_REDSTONE))
             .addInvariant(new FocusItemPresentRequirement(Registry.BONECHILL_WAND.get())));
 
