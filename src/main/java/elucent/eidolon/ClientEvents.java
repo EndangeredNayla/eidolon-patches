@@ -42,7 +42,7 @@ public class ClientEvents {
                 RenderUtil.GLOWING_SPRITE}) {
                 buffers.put(type, new BufferBuilder(ModList.get().isLoaded("rubidium") ? 32768 : type.bufferSize()));
             }
-            DELAYED_RENDER = MultiBufferSource.immediateWithBuffers(buffers, new BufferBuilder(128));
+            DELAYED_RENDER = new MultiBufferSource.BufferSource(new BufferBuilder(128), buffers);
         }
         return DELAYED_RENDER;
     }
@@ -57,7 +57,7 @@ public class ClientEvents {
     @SubscribeEvent
     public void onRenderLast(RenderLevelStageEvent event) {
         if (ClientConfig.BETTER_LAYERING.get()) {
-            PoseStack mStack = RenderSystem.getModelViewStack();
+            // PoseStack mStack = RenderSystem.getModelViewStack();
 
             RenderSystem.getModelViewStack().pushPose(); // this feels...cheaty
             RenderSystem.getModelViewStack().setIdentity();
