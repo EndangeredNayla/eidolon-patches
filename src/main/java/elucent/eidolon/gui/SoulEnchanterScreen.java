@@ -4,10 +4,10 @@ import com.google.common.collect.Lists;
 import com.mojang.blaze3d.platform.Lighting;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.Tesselator;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Matrix4f;
 import com.mojang.math.Vector3f;
+import elucent.eidolon.ClientEvents;
 import elucent.eidolon.Eidolon;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
@@ -118,7 +118,7 @@ public class SoulEnchanterScreen extends AbstractContainerScreen<SoulEnchanterCo
         }
 
         MODEL_BOOK.setupAnim(0.0F, f3, f4, f1);
-        MultiBufferSource.BufferSource multibuffersource$buffersource = MultiBufferSource.immediate(Tesselator.getInstance().getBuilder());
+        MultiBufferSource.BufferSource multibuffersource$buffersource = ClientEvents.getDelayedRender();
         VertexConsumer vertexconsumer = multibuffersource$buffersource.getBuffer(MODEL_BOOK.renderType(ENCHANTMENT_TABLE_BOOK_TEXTURE));
         MODEL_BOOK.renderToBuffer(matrixStack, vertexconsumer, 15728880, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
         multibuffersource$buffersource.endBatch();

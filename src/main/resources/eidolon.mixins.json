@@ -4,14 +4,14 @@
   "compatibilityLevel": "JAVA_8",
   "refmap": "eidolon.refmap.json",
   "mixins": [
-    "ZombieVillagerMixin",
-    "PotionBrewingMixin",
-    "LivingEntityMixin",
-    "PlayerRendererMixin",
-    "LevelRendererMixin",
     "AbstractArrowMixin",
     "AbstractContainerMenuMixin",
-    "LocalPlayerMixin"
+    "LevelRendererMixin",
+    "LivingEntityMixin",
+    "LocalPlayerMixin",
+    "PlayerRendererMixin",
+    "PotionBrewingMixin",
+    "ZombieVillagerMixin"
   ],
   "minVersion": "0.8"
 }

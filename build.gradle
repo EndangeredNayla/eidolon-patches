@@ -21,7 +21,7 @@ apply plugin: 'org.parchmentmc.librarian.forgegradle'
 apply plugin: 'maven-publish'
 apply from: 'https://raw.githubusercontent.com/SizableShrimp/ForgeUpdatesRemapper/main/remapper.gradle'
 
-version = '0.3.2'
+version = '0.3.4'
 group = 'elucent.eidolon' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'eidolon'
 
@@ -104,8 +104,16 @@ repositories {
     }
 
     maven {
-        name 'JEI maven'
-        url = "https://dvs1.progwml6.com/files/maven"
+        // location of the maven that hosts JEI files since January 2023
+        name = "Jared's maven"
+        url = "https://maven.blamejared.com/"
+    }
+
+    maven {
+        url "https://cursemaven.com"
+        content {
+            includeGroup "curse.maven"
+        }
     }
 }
 
@@ -120,6 +128,9 @@ dependencies {
     runtimeOnly fg.deobf("mezz.jei:jei-${mc_version}-forge:${jei_version}")
 
     implementation fg.deobf("top.theillusivec4.curios:curios-forge:${mc_version}-${curio_version}")
+
+    implementation fg.deobf("curse.maven:rubidium-574856:4568727")
+    implementation fg.deobf("curse.maven:oculus-581495:4578731")
 
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 }
