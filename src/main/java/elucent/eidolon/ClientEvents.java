@@ -57,7 +57,7 @@ public class ClientEvents {
     @SubscribeEvent
     public void onRenderLast(RenderLevelStageEvent event) {
         if (ClientConfig.BETTER_LAYERING.get()) {
-            PoseStack mStack = RenderSystem.getModelViewStack();
+            // PoseStack mStack = RenderSystem.getModelViewStack();
 
             RenderSystem.getModelViewStack().pushPose(); // this feels...cheaty
             RenderSystem.getModelViewStack().setIdentity();

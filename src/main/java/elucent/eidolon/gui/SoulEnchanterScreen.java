@@ -88,7 +88,7 @@ public class SoulEnchanterScreen extends AbstractContainerScreen<SoulEnchanterCo
         posestack$pose.pose().setIdentity();
         posestack$pose.normal().setIdentity();
         matrixStack.translate(0.0D, 3.3F, 1984.0D);
-        float f = 5.0F;
+        // float f = 5.0F;
         matrixStack.scale(5.0F, 5.0F, 5.0F);
         matrixStack.mulPose(Vector3f.ZP.rotationDegrees(180.0F));
         matrixStack.mulPose(Vector3f.XP.rotationDegrees(20.0F));
@@ -172,7 +172,7 @@ public class SoulEnchanterScreen extends AbstractContainerScreen<SoulEnchanterCo
         super.render(matrixStack, mouseX, mouseY, partialTicks);
         this.renderTooltip(matrixStack, mouseX, mouseY);
         boolean flag = this.minecraft.player.getAbilities().instabuild;
-        int i = this.menu.getSoulShardAmount();
+        // int i = this.menu.getSoulShardAmount();
 
         for(int j = 0; j < 3; ++j) {
             Enchantment enchantment = Enchantment.byId((this.menu).enchantClue[j]);
@@ -240,7 +240,7 @@ public class SoulEnchanterScreen extends AbstractContainerScreen<SoulEnchanterCo
 
         this.open = Mth.clamp(this.open, 0.0F, 1.0F);
         float f1 = (this.flipT - this.flip) * 0.4F;
-        float f = 0.2F;
+        // float f = 0.2F;
         f1 = Mth.clamp(f1, -0.2F, 0.2F);
         this.flipA += (f1 - this.flipA) * 0.9F;
         this.flip += this.flipA;
