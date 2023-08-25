@@ -77,6 +77,10 @@ public abstract class Ritual {
         return stepRequirements;
     }
 
+    public List<IRequirement> getContinuousRequirements() {
+        return continuousRequirements;
+    }
+
     public enum SetupResult {
         FAIL,
         PASS,
