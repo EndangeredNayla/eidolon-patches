@@ -56,11 +56,11 @@ public class RuneIndexPage extends Page {
         IKnowledge knowledge = entity.getCapability(IKnowledge.INSTANCE, null).resolve().get();
         for (int i = 0; i < runes.length; i ++) {
             int xx = x + 2 + (i % 6) * 20, yy = y + 2 + (i / 6) * 20;
-            //if (knowledge.knowsRune(runes[i]) && mouseX >= xx && mouseX <= xx + 16 && mouseY >= yy && mouseY <= yy + 16) {
-            //    addToChant(runes[i]);
-            //    entity.playNotifySound(Sounds.SELECT_RUNE.get(), SoundSource.NEUTRAL, 0.5f, entity.level.random.nextFloat() * 0.25f + 0.75f);
-            //    return true;
-            //}
+            if (knowledge.knowsRune(runes[i]) && mouseX >= xx && mouseX <= xx + 16 && mouseY >= yy && mouseY <= yy + 16) {
+                gui.addToChant(runes[i]);
+                entity.playNotifySound(Sounds.SELECT_RUNE.get(), SoundSource.NEUTRAL, 0.5f, entity.level.random.nextFloat() * 0.25f + 0.75f);
+                return true;
+            }
         }
         return false;
     }

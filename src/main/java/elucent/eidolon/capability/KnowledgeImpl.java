@@ -3,7 +3,6 @@ package elucent.eidolon.capability;
 import java.util.HashSet;
 import java.util.Set;
 
-import elucent.eidolon.codex.SignIndexPage;
 import elucent.eidolon.spell.Rune;
 import elucent.eidolon.spell.Runes;
 import elucent.eidolon.spell.Sign;
@@ -99,10 +98,6 @@ public class KnowledgeImpl implements IKnowledge, INBTSerializable<CompoundTag> 
     @Override
     public boolean knowsRune(Rune rune) {
         return runes.contains(rune);
-    }
-
-    public boolean knowsSign(SignIndexPage.SignEntry sign) {
-        return signs.contains(sign);
     }
 
     @Override

@@ -10,8 +10,6 @@ import elucent.eidolon.ClientEvents;
 import elucent.eidolon.ClientRegistry;
 import elucent.eidolon.Eidolon;
 import elucent.eidolon.capability.IKnowledge;
-import elucent.eidolon.registries.Sounds;
-import elucent.eidolon.spell.Rune;
 import elucent.eidolon.spell.Sign;
 import elucent.eidolon.util.ColorUtil;
 import elucent.eidolon.util.RenderUtil;
@@ -19,14 +17,13 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.texture.TextureAtlas;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-
-import java.util.Optional;
 
 public class SignIndexPage extends Page {
     public static final ResourceLocation BACKGROUND = new ResourceLocation(Eidolon.MODID, "textures/gui/codex_sign_index_page.png");
@@ -45,7 +42,6 @@ public class SignIndexPage extends Page {
     public SignIndexPage(SignEntry... pages) {
         super(BACKGROUND);
         this.entries = pages;
-
     }
 
     @Override
@@ -55,16 +51,16 @@ public class SignIndexPage extends Page {
         IKnowledge knowledge = entity.getCapability(IKnowledge.INSTANCE, null).resolve().get();
         for (int i = 0; i < entries.length; i ++) {
             int xx = x + 8 + (i % 2) * 56, yy = y + 4 + (i / 2) * 52;
-            if (mouseX >= xx && mouseX <= xx + 48 && mouseY >= yy && mouseY <= yy + 48) {
-                gui.addToChant(entries[i].sign);
+            if (knowledge.knowsSign(entries[i].sign) && mouseX >= xx && mouseX <= xx + 48 && mouseY >= yy && mouseY <= yy + 48) {
+                gui.changeChapter(entries[i].chapter);
                 Minecraft.getInstance().player.playNotifySound(SoundEvents.UI_BUTTON_CLICK, SoundSource.NEUTRAL, 1.0f, 1.0f);
                 return true;
             }
-            else if (knowledge.knowsSign(entries[i].sign) && mouseX >= xx && mouseX <= xx + 48 && mouseY >= yy && mouseY <= yy + 48) {
-                gui.addToChant(entries[i].sign);
-                entity.playNotifySound(Sounds.SELECT_RUNE.get(), SoundSource.NEUTRAL, 0.5f, entity.level.random.nextFloat() * 0.25f + 0.75f);
-                return true;
-           }
+//            else if (knowledge.knowsSign(entries[i].sign) && mouseX >= xx && mouseX <= xx + 48 && mouseY >= yy && mouseY <= yy + 48) {
+//                gui.addToChant(entries[i].sign);
+//                entity.playNotifySound(Registry.SELECT_SIGN.get(), SoundSource.NEUTRAL, 0.5f, entity.level.random.nextFloat() * 0.25f + 0.75f);
+//                return true;
+//            }
         }
         return false;
     }
@@ -76,8 +72,8 @@ public class SignIndexPage extends Page {
         float minU = (float)uOffset / textureWidth, minV = (float)vOffset / textureHeight;
         float maxU = minU + (float)width / textureWidth, maxV = minV + (float)height / textureHeight;
         int r = ColorUtil.getRed(color),
-                g = ColorUtil.getGreen(color),
-                b = ColorUtil.getBlue(color);
+            g = ColorUtil.getGreen(color),
+            b = ColorUtil.getBlue(color);
         BufferBuilder bufferbuilder = Tesselator.getInstance().getBuilder();
         bufferbuilder.begin(Mode.QUADS, DefaultVertexFormat.POSITION_TEX_COLOR);
         bufferbuilder.vertex(matrix, (float)x, (float)maxY, 0).uv(minU, maxV).color(r, g, b, 255).endVertex();
@@ -124,6 +120,11 @@ public class SignIndexPage extends Page {
                 
                 RenderSystem.setShader(GameRenderer::getPositionTexShader);
                 RenderSystem.setShaderTexture(0, BACKGROUND);
+                gui.blit(mStack, xx + 38, yy + 38, infoHover ? 188 : 176, 48, 12, 14);
+                
+                if (infoHover) {
+                    gui.renderTooltip(mStack, Component.translatable("eidolon.codex.sign_suffix", Component.translatable(sign.getRegistryName().getNamespace() + ".sign." + sign.getRegistryName().getPath())), mouseX, mouseY);
+                }
             }
         }
     }
