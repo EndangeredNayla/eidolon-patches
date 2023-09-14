@@ -42,10 +42,10 @@ public class ChantCasterEntity extends Entity implements IEntityAdditionalSpawnD
     int timer = 0, deathTimer = 0;
     Vec3 look;
 
-    public ChantCasterEntity(Level world, Player caster, List<Rune> runes, Vec3 look) {
+    public ChantCasterEntity(Level world, Player caster, List<Sign> signs, Vec3 look) {
         super(Entities.CHANT_CASTER.get(), world);
         this.look = look;
-        setRunesTag(runes);
+        setRunesTag(signs);
         getEntityData().set(CASTER_ID, Optional.of(caster.getUUID()));
     }
 
@@ -69,17 +69,17 @@ public class ChantCasterEntity extends Entity implements IEntityAdditionalSpawnD
         return runes;
     }
     
-    protected void setRunesTag(List<Rune> runes) {
+    protected void setRunesTag(List<Sign> signs) {
         ListTag runesList = new ListTag();
         CompoundTag runesTag = new CompoundTag();
-        for (Rune r : runes) runesList.add(StringTag.valueOf(r.getRegistryName().toString()));
-        runesTag.put("runes", runesList);
-        getEntityData().set(RUNES, runesTag);
+        for (Sign r : signs) runesList.add(StringTag.valueOf(r.getRegistryName().toString()));
+        runesTag.put("signs", runesList);
+        getEntityData().set(SIGNS, runesTag);
     }
 
     @Override
     protected void defineSynchedData() {
-        getEntityData().define(RUNES, getNoRunesTag());
+        getEntityData().define(SIGNS, getNoRunesTag());
         getEntityData().define(SIGNS, new SignSequence().serializeNbt());
         getEntityData().define(INDEX, 0);
         getEntityData().define(CASTER_ID, Optional.empty());

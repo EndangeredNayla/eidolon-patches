@@ -2,6 +2,7 @@ package elucent.eidolon.capability;
 
 import java.util.Set;
 
+import elucent.eidolon.codex.SignIndexPage;
 import elucent.eidolon.spell.Rune;
 import elucent.eidolon.spell.Sign;
 import net.minecraft.core.Direction;
@@ -17,6 +18,8 @@ import net.minecraftforge.common.util.LazyOptional;
 public interface IKnowledge {
     Capability<IKnowledge> INSTANCE = CapabilityManager.get(new CapabilityToken<>() {
     });
+
+    boolean knowsSign(SignIndexPage.SignEntry entry);
 
     class Provider implements ICapabilityProvider, INBTSerializable<CompoundTag> {
         final KnowledgeImpl impl = new KnowledgeImpl();

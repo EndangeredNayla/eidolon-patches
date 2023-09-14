@@ -79,9 +79,9 @@ public class KnowledgeUtil {
         return false;
     }
 
-    public static boolean knowsRune(Player player, Rune rune) {
+    public static boolean knowsRune(Player player, Sign sign) {
         if (player.getCapability(IKnowledge.INSTANCE).isPresent()) {
-            return player.getCapability(IKnowledge.INSTANCE).resolve().get().knowsRune(rune);
+            return player.getCapability(IKnowledge.INSTANCE).resolve().get().knowsSign(sign);
         }
         return false;
     }
