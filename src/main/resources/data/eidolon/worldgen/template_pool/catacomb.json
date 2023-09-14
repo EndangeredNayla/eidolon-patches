@@ -66,11 +66,11 @@
       }
     },
     {
-<<<<<<< HEAD
-      "weight": 5,
-=======
       "weight": 4,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
         "location": "eidolon:catacomb/catacomb_skull",
+        "projection": "rigid",
         "processors": "minecraft:empty"
       }
     },
