@@ -24,7 +24,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-//this sucks, but it works - petey
 public class CrucibleRecipeCategory implements IRecipeCategory<CrucibleRecipe> {
     public static final ResourceLocation UID = new ResourceLocation(Eidolon.MODID, "crucible");
     public static final ResourceLocation BACKGROUND = new ResourceLocation(Eidolon.MODID, "textures/gui/jei_page_bg.png");
@@ -46,7 +45,6 @@ public class CrucibleRecipeCategory implements IRecipeCategory<CrucibleRecipe> {
         this.icon = helper.createDrawableItemStack(new ItemStack(Registry.CRUCIBLE.get()));
 
 
-        //i have no idea what im doing
         this.resultIcon = helper.createDrawable(PAGE_TEXTURE, 128, 64, 128, 64);
         this.stirIcon = helper.createDrawable(PAGE_TEXTURE, 192, 32, 16, 16);
         this.itemIcon = helper.createDrawable(PAGE_TEXTURE, 176, 33, 16, 16);
@@ -103,7 +101,6 @@ public class CrucibleRecipeCategory implements IRecipeCategory<CrucibleRecipe> {
 
     }
 
-    //this is probably really inefficient but ive literally never done rendering before - petey
     @Override
     public void draw(CrucibleRecipe recipe, IRecipeSlotsView recipeSlotsView, PoseStack poseStack, double mouseX, double mouseY) {
 
@@ -112,20 +109,14 @@ public class CrucibleRecipeCategory implements IRecipeCategory<CrucibleRecipe> {
         int yoff = 80 - h / 2;
 
         //result
-        poseStack.pushPose();
-        poseStack.translate(4, (yoff + steps.size() * 20 + 14) - 10,10);
-        resultIcon.draw(poseStack);
-        poseStack.popPose();
+        resultIcon.draw(poseStack, 4, (yoff + steps.size() * 20 + 14) - 10);
 
         //steps
         for (int i = 0; i < steps.size(); i ++) {
 
             int tx = 4, ty = 3 + yoff + i * 20;
 
-            poseStack.pushPose();
-            poseStack.translate(tx, ty, 10);
-            stepIcon.draw(poseStack);
-            poseStack.popPose();
+            stepIcon.draw(poseStack, tx, ty);
 
             tx += 24;
 
@@ -138,17 +129,11 @@ public class CrucibleRecipeCategory implements IRecipeCategory<CrucibleRecipe> {
 
             for (int j = 0; j < stepInputs.size(); j ++) {
 
-                poseStack.pushPose();
-                poseStack.translate(tx, ty + 1, 10);
-                itemIcon.draw(poseStack);
-                poseStack.popPose();
+                itemIcon.draw(poseStack, tx, ty + 1);
                 tx += 17;
             }
             for (int j = 0; j < steps.get(i).stirs; j++) {
-                poseStack.pushPose();
-                poseStack.translate(tx, ty + 1, 10);
-                stirIcon.draw(poseStack);
-                poseStack.popPose();
+                stirIcon.draw(poseStack, tx, ty + 1);
                 tx += 17;
             }
 
