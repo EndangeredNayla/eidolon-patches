@@ -33,7 +33,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-//this sucks more, but it works - petey
 public class RitualRecipeCategory implements IRecipeCategory<RitualRecipeWrapper> {
     public static final ResourceLocation UID = new ResourceLocation(Eidolon.MODID, "ritual");
     public static final ResourceLocation BACKGROUND = new ResourceLocation(Eidolon.MODID, "textures/gui/jei_page_bg.png");
@@ -108,10 +107,7 @@ public class RitualRecipeCategory implements IRecipeCategory<RitualRecipeWrapper
     public void draw(RitualRecipeWrapper recipe, IRecipeSlotsView recipeSlotsView, PoseStack poseStack, double mouseX, double mouseY) {
         Ritual ritual = recipe.ritual();
         //overlay
-        poseStack.pushPose();
-        poseStack.translate(4, 3, 10);
-        overlay.draw(poseStack);
-        poseStack.popPose();
+        overlay.draw(poseStack, 4, 3);
 
         //ritual ingredients
         List<RitualIngredient> ingredients = getRitualIngredients(recipe);
@@ -126,16 +122,10 @@ public class RitualRecipeCategory implements IRecipeCategory<RitualRecipeWrapper
             int dx = (int)(64 + 48 * Math.cos(a));
             int dy = (int)(88 + 48 * Math.sin(a));
             if (ingredients.get(i).isFocus) {
-                poseStack.pushPose();
-                poseStack.translate(x + dx - 13, y + dy - 13, 10);
-                focusIcon.draw(poseStack);
-                poseStack.popPose();
+                focusIcon.draw(poseStack, x + dx - 13, y + dy - 13);
             }
             else {
-                poseStack.pushPose();
-                poseStack.translate(x + dx - 8, y + dy - 8, 10);
-                itemIcon.draw(poseStack);
-                poseStack.popPose();
+                itemIcon.draw(poseStack, x + dx - 8, y + dy - 8);
             }
         }
 
