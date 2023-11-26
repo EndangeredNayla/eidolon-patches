@@ -97,7 +97,7 @@ public class RuneIndexPage extends Page {
             gui.blit(mStack, xx, yy, knowledge.isPresent() && knowledge.get().knowsRune(runes[i]) ? 128 : 148, 0, 20, 20);
 
             if (knowledge.isPresent() && knowledge.get().knowsRune(runes[i])) {
-                Tesselator tess = Tesselator.getInstance();
+                MultiBufferSource.BufferSource bufferSource = Minecraft.getInstance().renderBuffers().bufferSource();
                 RenderSystem.enableBlend();
                 RenderSystem.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE);
                 RenderSystem.setShader(ClientRegistry::getGlowingSpriteShader);
@@ -111,9 +111,9 @@ public class RuneIndexPage extends Page {
                 }
                 RenderSystem.setShaderTexture(0, TextureAtlas.LOCATION_BLOCKS);
                 for (int j = 0; j < (hover ? 2 : 1); j++) {
-                    RenderUtil.litQuad(mStack, MultiBufferSource.immediate(tess.getBuilder()), xx + 6, yy + 6, 8, 8,
+                    RenderUtil.litQuad(mStack, bufferSource, xx + 6, yy + 6, 8, 8,
                         1, 1, 1, 0.75f, Minecraft.getInstance().getTextureAtlas(TextureAtlas.LOCATION_BLOCKS).apply(runes[i].getSprite()));
-                    tess.end();
+                    bufferSource.endBatch();
                 }
                 RenderSystem.disableBlend();
                 RenderSystem.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);

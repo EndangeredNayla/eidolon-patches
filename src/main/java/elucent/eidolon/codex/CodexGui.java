@@ -95,11 +95,11 @@ public class CodexGui extends Screen {
         RenderSystem.setShader(ClientRegistry::getGlowingSpriteShader);
         RenderSystem.setShaderTexture(0, TextureAtlas.LOCATION_BLOCKS);
         bgx = baseX + 16;
-        Tesselator tess = Tesselator.getInstance();
+        MultiBufferSource.BufferSource bufferSource = Minecraft.getInstance().renderBuffers().bufferSource();
         for (Rune rune : chant) {
-            RenderUtil.litQuad(mStack, MultiBufferSource.immediate(tess.getBuilder()), bgx + 2, baseY + 8, 8, 8,
+            RenderUtil.litQuad(mStack, bufferSource, bgx + 2, baseY + 8, 8, 8,
                     1, 1, 1, 0.5f, Minecraft.getInstance().getTextureAtlas(TextureAtlas.LOCATION_BLOCKS).apply(rune.getSprite()));
-            tess.end();
+            bufferSource.endBatch();
             bgx += 12;
         }
         bgx = baseX + 16;
@@ -107,9 +107,9 @@ public class CodexGui extends Screen {
         for (int i = 0; i < chant.size(); i ++) {
             float flicker = 0.75f + 0.25f * (float)Math.sin(Math.toRadians(12 * ClientEvents.getClientTicks() - 360.0f * i / chant.size()));
             Rune rune = chant.get(i);
-            RenderUtil.litQuad(mStack, MultiBufferSource.immediate(tess.getBuilder()), bgx + 2, baseY + 8, 8, 8,
+            RenderUtil.litQuad(mStack, bufferSource, bgx + 2, baseY + 8, 8, 8,
                 flicker, flicker, flicker, 0.5f * flicker, Minecraft.getInstance().getTextureAtlas(TextureAtlas.LOCATION_BLOCKS).apply(rune.getSprite()));
-            tess.end();
+            bufferSource.endBatch();
             bgx += 12;
         }
         RenderSystem.defaultBlendFunc();

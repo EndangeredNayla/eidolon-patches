@@ -56,19 +56,19 @@ public class RitualPage extends Page {
 
         RenderSystem.enableBlend();
         RenderSystem.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE);
-        Tesselator tess = Tesselator.getInstance();
+        MultiBufferSource.BufferSource bufferSource = Minecraft.getInstance().renderBuffers().bufferSource();
         RenderSystem.disableTexture();
         RenderSystem.depthMask(false);
         RenderSystem.setShader(ClientRegistry::getGlowingShader);
-        RenderUtil.dragon(mStack, MultiBufferSource.immediate(tess.getBuilder()), x + 64, y + 48, 20, 20, ritual.getRed(), ritual.getGreen(), ritual.getBlue());
-        tess.end();
+        RenderUtil.dragon(mStack, bufferSource, x + 64, y + 48, 20, 20, ritual.getRed(), ritual.getGreen(), ritual.getBlue());
+        bufferSource.endBatch();
         RenderSystem.enableTexture();
         RenderSystem.setShader(ClientRegistry::getGlowingSpriteShader);
         RenderSystem.setShaderTexture(0, TextureAtlas.LOCATION_BLOCKS);
         for (int j = 0; j < 2; j++) {
-            RenderUtil.litQuad(mStack, MultiBufferSource.immediate(tess.getBuilder()), x + 52, y + 36, 24, 24,
+            RenderUtil.litQuad(mStack, bufferSource, x + 52, y + 36, 24, 24,
                 ritual.getRed(), ritual.getGreen(), ritual.getBlue(), Minecraft.getInstance().getTextureAtlas(TextureAtlas.LOCATION_BLOCKS).apply(ritual.getSymbol()));
-            tess.end();
+            bufferSource.endBatch();
         }
         RenderSystem.disableBlend();
         RenderSystem.depthMask(true);
